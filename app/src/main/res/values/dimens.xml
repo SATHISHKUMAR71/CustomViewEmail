@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="vertical_padding">10dp</dimen>
+    <dimen name="horizontalPadding">10dp</dimen>
+    <dimen name="margin_left">10dp</dimen>
+    <dimen name="date_end_margin_right">20dp</dimen>
+    <dimen name="dateMargin">50dp</dimen>
+</resources>
