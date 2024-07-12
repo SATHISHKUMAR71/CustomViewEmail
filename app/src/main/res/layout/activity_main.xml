@@ -1,21 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:id="@+id/drawerLayout"
+    android:layout_height="match_parent">
 
-    <com.example.customviewemail.CustomEmail
-        android:layout_width="wrap_content"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:emailContents="This is the nedakhsdvfjlsdbfSIjb difvandckjfvnsblhierfwbedqo;lakcmskdj iufvoefcd kiw email"
-        app:emailDate="07 July"
-        app:emailImage="@drawable/baseline_person_24"
-        app:emailSubtitle="suajfb jahsbvfdusdbfuvsbadcusbcisvfbtitle"
-        app:emailTitle="New Email from Sathishkumar B"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorPrimary"
+        android:layout_width="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            app:title="Gmail"
+            app:titleTextColor="?attr/colorOnPrimary"
+            app:titleCentered="true"
+            android:id="@+id/toolbar"
+            app:navigationIconTint="?attr/colorOnPrimary"
+            app:navigationIcon="@drawable/baseline_menu_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways|snapMargins|snap"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/baseline_email_24" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/baseline_videocam_24" />
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="360dp"
+        android:id="@+id/navView"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.drawerlayout.widget.DrawerLayout>
+

@@ -6,5 +6,7 @@
         <attr name="emailSubtitle" format="string"/>
         <attr name="emailContents" format="string"/>
         <attr name="emailDate" format="string"/>
+        <attr name="android:ellipsize" format="reference"/>
+        <attr name="maxLines" format="integer"/>
     </declare-styleable>
 </resources>

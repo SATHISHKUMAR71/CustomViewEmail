@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+
+        <com.example.customviewemail.CustomEmail
+            android:id="@+id/emailView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple"
+            android:backgroundTint="@color/white"
+            android:ellipsize="end"
+            android:padding="20dp"
+            app:emailContents="This is the sample content"
+            app:emailDate="07 July"
+            app:emailImage="@drawable/baseline_person_24"
+            app:emailSubtitle="Subtitle"
+            app:emailTitle="Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxLines="1" />
+<!--    </LinearLayout>-->
+
+
+
+</RelativeLayout>
+
+
