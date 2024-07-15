@@ -8,5 +8,7 @@
         <attr name="emailDate" format="string"/>
         <attr name="android:ellipsize" format="reference"/>
         <attr name="maxLines" format="integer"/>
+        <attr name="profileLetter" format="string"/>
+        <attr name="profileColor" format="color"/>
     </declare-styleable>
 </resources>

@@ -3,20 +3,28 @@ package com.example.customviewemail
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.ColorFilter
 import android.graphics.Typeface
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.provider.ContactsContract.CommonDataKinds.Im
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.toColor
 import org.w3c.dom.Text
 
 class CustomEmail @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    private lateinit var imageView: ImageView
+
+    private var profileView:TextView
     private lateinit var star:ImageView
     private lateinit var title: TextView
     private lateinit var subTitle: TextView
@@ -25,16 +33,13 @@ class CustomEmail @JvmOverloads constructor(
     private var dateRightPos = 0
     private lateinit var content:TextView
     private lateinit var date:TextView
+    private val shape = ShapeDrawable(OvalShape())
 
     init {
         println(desiredTextSize)
-
-        // Initialize views
-        imageView = ImageView(context)
+        profileView = TextView(context)
         star = ImageView(context)
-
-//        imageView.setColorFilter(androidx.appcompat.R.attr.colorAccent)
-        imageView.setColorFilter(com.google.android.material.R.attr.colorControlHighlight)
+        shape.paint.color = com.google.android.material.R.attr.colorAccent
         title = TextView(context)
         title.setTypeface(null,Typeface.BOLD)
         date = TextView(context)
@@ -43,6 +48,7 @@ class CustomEmail @JvmOverloads constructor(
         subTitle.setTypeface(null,Typeface.BOLD)
         content = TextView(context)
         star.setImageResource(R.drawable.baseline_star_outline_24)
+        profileView.textSize = desiredTextSize * 0.03f
         title.textSize = desiredTextSize * 0.015f
         subTitle.textSize = desiredTextSize*0.013f
         content.textSize = desiredTextSize*0.01f
@@ -53,7 +59,14 @@ class CustomEmail @JvmOverloads constructor(
         val imgAttr = typedArray.getDrawable(R.styleable.CustomEmail_emailImage)
         val contentAttr = typedArray.getString(R.styleable.CustomEmail_emailContents)
         val dateAttr = typedArray.getString(R.styleable.CustomEmail_emailDate)
-        imageView.setImageDrawable(imgAttr)
+        val profileLetter = typedArray.getString(R.styleable.CustomEmail_profileLetter)
+        val profileColor = typedArray.getColor(R.styleable.CustomEmail_profileColor,com.google.android.material.R.attr.colorAccent)
+
+        shape.paint.color = profileColor
+        profileView.background = shape
+        profileView.text = profileLetter
+        profileView.setTextColor(Color.WHITE)
+        profileView.gravity = Gravity.CENTER
         title.text = titleAttr
         subTitle.text = subtitleAttr
         content.text = contentAttr
@@ -65,7 +78,7 @@ class CustomEmail @JvmOverloads constructor(
         subTitle.maxLines =1
         content.maxLines = 1
         typedArray.recycle()
-        addView(imageView)
+        addView(profileView)
         addView(title)
         addView(subTitle)
         addView(content)
@@ -77,7 +90,7 @@ class CustomEmail @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         // Measure dimensions for all child views
-        measureChildWithMargins(imageView, widthMeasureSpec, 0, heightMeasureSpec, 0)
+        measureChildWithMargins(profileView, widthMeasureSpec, 0, heightMeasureSpec, 0)
         measureChildWithMargins(title, widthMeasureSpec, 0, heightMeasureSpec, 0)
         measureChildWithMargins(subTitle, widthMeasureSpec, 0, heightMeasureSpec, 0)
         measureChildWithMargins(content, widthMeasureSpec, 0, heightMeasureSpec, 0)
@@ -89,35 +102,33 @@ class CustomEmail @JvmOverloads constructor(
         // Calculate total width required (considering padding)
 
         val screenWidth = resources.displayMetrics.widthPixels
-        val imageViewWidth = (screenWidth * 0.2).toInt()
-        val imageViewHeight = (imageViewWidth )
+        val profileViewWidth = (screenWidth * 0.13).toInt()
+        val profileViewHeight = (profileViewWidth )
 
-        val lp = imageView.layoutParams as MarginLayoutParams
-        lp.width = imageViewWidth
-        lp.height = imageViewHeight
-        imageView.layoutParams = lp
+        val lp = profileView.layoutParams as MarginLayoutParams
+        lp.width = profileViewWidth
+        lp.height = profileViewHeight
+        profileView.layoutParams = lp
 
         val titleLp = title.layoutParams as MarginLayoutParams
-        titleLp.width = dateLeftPos - imageViewWidth - 130
+        titleLp.width = dateLeftPos - profileViewWidth - 130
         title.layoutParams = titleLp
 
         subTitle.layoutParams = subTitle.layoutParams.apply {
-            width = dateLeftPos - imageViewWidth - 130
+            width = dateLeftPos - profileViewWidth - 130
         }
         content.layoutParams = content.layoutParams.apply {
-            width = dateLeftPos - imageViewWidth - 130
+            width = dateLeftPos - profileViewWidth - 130
         }
 
         val desiredWidth = resources.displayMetrics.widthPixels
-//        val desiredWidth = imageViewWidth+ title.measuredWidth+ date.measuredWidth+ paddingLeft + paddingRight + resources.getDimensionPixelSize(R.dimen.horizontalPadding)
+//        val desiredWidth = profileViewWidth+ title.measuredWidth+ date.measuredWidth+ paddingLeft + paddingRight + resources.getDimensionPixelSize(R.dimen.horizontalPadding)
 
         // Calculate total height required (considering padding)
         val desiredHeight = maxOf((title.measuredHeight +
                 subTitle.measuredHeight +
                 content.measuredHeight +
-                paddingTop + paddingBottom + resources.getDimensionPixelSize(R.dimen.vertical_padding)*2),imageViewHeight)
-
-
+                paddingTop + paddingBottom + resources.getDimensionPixelSize(R.dimen.vertical_padding)*2),(profileViewHeight+paddingBottom+paddingTop))
         // Resolve the measured dimensions against the measure specifications
         val measuredWidth = resolveSize(desiredWidth, widthMeasureSpec)
         val measuredHeight = resolveSize(desiredHeight, heightMeasureSpec)
@@ -141,17 +152,15 @@ class CustomEmail @JvmOverloads constructor(
         )
 
 
-//        i
-
-        // Layout imageView
-        imageView.layout(
+        // Layout profileView
+        profileView.layout(
             paddingLeft,
             currentTop,
-            paddingLeft + imageView.measuredWidth,
-            currentTop + imageView.measuredHeight
+            paddingLeft + profileView.measuredWidth,
+            currentTop + profileView.measuredHeight
         )
 
-        currentWidth +=imageView.measuredWidth + resources.getDimensionPixelSize(R.dimen.horizontalPadding)
+        currentWidth +=profileView.measuredWidth + paddingLeft
         // Update current top position
 
 
@@ -226,9 +235,6 @@ class CustomEmail @JvmOverloads constructor(
     fun setDate(text:Text){
         date.text = text.toString()
     }
-    fun setImage(resourceID:Int){
-        imageView.setImageResource(resourceID)
-    }
 
     fun setTitle(text: String){
         title.text = text
@@ -242,10 +248,10 @@ class CustomEmail @JvmOverloads constructor(
     fun setDate(text:String){
         date.text = text
     }
-
-    fun getImage():ImageView{
-        return imageView
+    fun setProfileLetter(letter:String){
+        profileView.text = letter
     }
+
 
     fun getTitle():TextView{
         return title
@@ -264,5 +270,8 @@ class CustomEmail @JvmOverloads constructor(
         return star
     }
 
+    fun getProfileView():TextView{
+        return profileView
+    }
 
 }

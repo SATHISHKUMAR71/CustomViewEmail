@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.badge.BadgeDrawable
 
-class EmailAdapter(private var emails:List<Email>):RecyclerView.Adapter<EmailAdapter.EmailViewHolder>() {
+class EmailAdapter(private var emails:List<Email>,var emailBadge:BadgeDrawable):RecyclerView.Adapter<EmailAdapter.EmailViewHolder>() {
 
 
     inner class EmailViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
@@ -26,14 +28,17 @@ class EmailAdapter(private var emails:List<Email>):RecyclerView.Adapter<EmailAda
         holder.itemView.apply {
             var i =0
             val email = this.findViewById<CustomEmail>(R.id.emailView)
-            val image = email.setImage(emails[position].imageId)
+//            val image = email.setImage(emails[position].imageId)
             val title = email.setTitle(emails[position].title)
+            emails[position].title
+            email.setProfileLetter(emails[position].title[0].toString())
             val subtitle = email.setSubtitle(emails[position].subTitle)
             val content = email.setContent(emails[position].content)
             val date = email.setDate(emails[position].date)
 
             this.setOnClickListener{
-                Toast.makeText(context,"Mail os Clicked",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Mail is Clicked",Toast.LENGTH_SHORT).show()
+                emailBadge.number -=1
                 email.getTitle().typeface = Typeface.DEFAULT
                 email.getSubtitle().typeface = Typeface.DEFAULT
                 email.getDate().typeface = Typeface.DEFAULT

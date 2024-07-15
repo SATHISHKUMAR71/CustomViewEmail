@@ -3,41 +3,112 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single" >
     <item
         android:id="@+id/main_item"
-        android:title="Gmail">
+        android:title="@string/gmail"
+        android:checkable="false">
         <menu>
             <item
-                android:id="@+id/inbox_item"
-                android:icon="@drawable/baseline_home_24"
-                android:title="Home"
-                app:showAsAction="ifRoom"
+                android:id="@+id/all_inboxes"
+                android:icon="@drawable/baseline_all_inbox_24"
+                android:title="@string/all_inboxes"
                 android:checkable="true"/>
             <item
-                android:id="@+id/outbox_item"
+                android:id="@+id/primary"
+                android:icon="@drawable/baseline_mail_24"
+                android:title="@string/primary"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/promotions"
                 android:icon="@drawable/baseline_add_box_24"
-                android:title="Box"
-                app:showAsAction="ifRoom"
+                android:title="@string/promotions"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/social"
+                android:icon="@drawable/baseline_people_alt_24"
+                android:title="@string/social"
                 android:checkable="true"/>
         </menu>
     </item>
 
+
     <item
         android:id="@+id/main_item2"
-        android:title="App Info">
+        android:title="@string/all_labels">
         <menu>
             <item
-                android:id="@+id/inbox_item1"
-                android:icon="@drawable/baseline_home_24"
-                android:title="Home"
-                app:showAsAction="ifRoom"
+                android:id="@+id/starred"
+                android:icon="@drawable/baseline_star_outline_24"
+                android:title="@string/starred"
                 android:checkable="true"/>
             <item
-                android:id="@+id/outbox_item2"
+                android:id="@+id/snoozed"
+                android:icon="@drawable/baseline_access_alarms_24"
+                android:title="@string/snoozed"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/important"
+                android:icon="@drawable/baseline_label_important_outline_24"
+                android:title="@string/important"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/sent"
+                android:icon="@drawable/baseline_send_24"
+                android:title="@string/sent"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/scheduled"
+                android:icon="@drawable/baseline_schedule_send_24"
+                android:title="@string/scheduled"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/outbox"
+                android:icon="@drawable/baseline_outbox_24"
+                android:title="@string/outbox"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/drafts"
+                android:icon="@drawable/baseline_drafts_24"
+                android:title="@string/drafts"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/all_mail"
+                android:icon="@drawable/baseline_all_inbox_24"
+                android:title="@string/all_mail"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/spam"
+                android:icon="@drawable/baseline_report_gmailerrorred_24"
+                android:title="@string/spam"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/bin"
                 android:icon="@drawable/baseline_add_box_24"
-                android:title="Box"
-                app:showAsAction="ifRoom"
+                android:title="@string/bin"
                 android:checkable="true"/>
         </menu>
     </item>
+    <item android:title="@string/google_apps">
+        <menu>
+            <item android:id="@+id/calendar"
+                android:title="@string/calendar"
+                android:icon="@drawable/baseline_calendar_today_24"
+                android:checkable="true"/>
+            <item android:id="@+id/contacts"
+                android:title="@string/contacts"
+                android:icon="@drawable/baseline_person_24"
+                android:checkable="true"/>
+        </menu>
+    </item>
+    <item android:id="@+id/settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:checkable="true"
+        android:title="@string/settings"/>
+    <item android:id="@+id/help_and_feedback"
+        android:checkable="true"
+        android:icon="@drawable/baseline_help_outline_24"
+        android:title="@string/help_and_feedback"/>
+    </group>
 </menu>

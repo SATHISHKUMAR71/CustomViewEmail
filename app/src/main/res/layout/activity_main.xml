@@ -6,63 +6,66 @@
     android:id="@+id/drawerLayout"
     android:layout_height="match_parent">
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorPrimary"
-        android:layout_width="match_parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            app:title="Gmail"
-            app:titleTextColor="?attr/colorOnPrimary"
-            app:titleCentered="true"
-            android:id="@+id/toolbar"
-            app:navigationIconTint="?attr/colorOnPrimary"
-            app:navigationIcon="@drawable/baseline_menu_24"
-            android:layout_width="match_parent"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways|snapMargins|snap"/>
+            android:layout_width="match_parent">
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/searchbar"
+                app:menu="@menu/search_nav_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_in_emails"
+                app:navigationIcon="@drawable/baseline_menu_24"
+                android:pointerIcon="arrow"/>
+            <TextView android:layout_width="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_height="wrap_content"
+                android:text="Primary" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
-        <com.google.android.material.tabs.TabLayout
+
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/recyclerView"
+           android:layout_width="match_parent"
+           app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+           android:layout_height="wrap_content" />
+
+
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/bottomNavView"
             android:layout_gravity="bottom"
-            android:layout_height="wrap_content">
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:menu="@menu/bottom_nav_menu"/>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/baseline_email_24" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/baseline_videocam_24" />
-        </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/compose"
+
+            app:icon="@drawable/baseline_edit_24"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="30dp"
+            android:padding="20dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="360dp"
+        android:layout_width="340dp"
         android:id="@+id/navView"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.drawerlayout.widget.DrawerLayout>

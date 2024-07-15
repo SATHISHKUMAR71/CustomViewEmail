@@ -6,4 +6,5 @@
     <dimen name="date_end_margin_right">20dp</dimen>
     <dimen name="dateMargin">50dp</dimen>
     <dimen name="text_extra">200</dimen>
+    <dimen name="profileLetterSize">220sp</dimen>
 </resources>
